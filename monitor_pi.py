@@ -12,16 +12,21 @@ def get_temperature():
     """
     path = "/sys/class/thermal/thermal_zone0/temp"
 
+    print(f"Getting temperature from pi")
+
     try:
         with open(path, "r") as file:
             content = file.read()
 
         temp_c = float(content) / 1000
 
+        print(f"Sucessfully read temperature from pi: {temp_c:.2f} °C")
+
         return temp_c
 
     except FileNotFoundError:
-        return 6767
+        print("Error reading temperature from pi")
+        return 0
 
 def get_ram_usage():
     """
@@ -31,6 +36,8 @@ def get_ram_usage():
         float: Percent of ram in use
     """
     path = "/proc/meminfo"
+
+    print(f"Getting ram usage from pi")
 
     try:
         with open(path, "r") as file:
@@ -42,15 +49,21 @@ def get_ram_usage():
 
         mem_in_use_percentage = ((mem_tot_kb - mem_av_kb) / mem_tot_kb) * 100
 
+        print(f"Successfully read ram usage from pi: {mem_in_use_percentage:.2f} %")
+
         return mem_in_use_percentage
 
     except FileNotFoundError:
-        return 6767
+        print("Error reading ram usage from pi")
+        return 0
 
 def report():
     """
     :return: dictionary with the methods that measure hardware status.
     """
+
+    print(f"Report of pi running...")
+
     return{
         "ram_usage": get_ram_usage(),
         "temperature": get_temperature()

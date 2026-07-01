@@ -18,14 +18,27 @@ warnings_states = {
 segundos_red = 0
 segundos_pi = 0
 
+print(f"MAIN_MONITOR IS RUNNING")
+
 while True:
+
+    print(f"* Second: {segundos_red}")
 
     if segundos_red >= 30:
 
         net_report = monitor_net.report()
 
+        print(f"----------Network script runned successfully----------")
+
         if net_report["status_router"] != "online":
+
+            print("Router is offline...")
+            print(f"Past Status: ", end="")
+                if warnings_states["router_down"]: print("Offline")
+                else: print("Online\nReport due.")
+
             if not warnings_states["router_down"]:
+
                 pi = monitor_pi.report()
 
                 with open(OFFLINE_LOG, "w") as f:
@@ -42,9 +55,17 @@ while True:
 
                 warnings_states["router_down"] = True
 
-                print("Router down. Saved in logs.")
+                print("Saved in logs.")
 
         elif net_report["status_internet"] != "online":
+
+            print(f"Internet is down.")
+            print(f"Past Status: ", end="")
+                if warnings_states["internet_down"]:
+                    print("Offline")
+                else:
+                    print("Online\nReport due.")
+
             if not warnings_states["internet_down"]:
                 pi = monitor_pi.report()
 
@@ -60,7 +81,7 @@ while True:
 
                 warnings_states["internet_down"] = True
 
-                print("Internet down. Saved in logs.")
+                print("Saved in logs.")
 
         else:
 
@@ -93,6 +114,9 @@ while True:
                 small_notifs.append("High DNS queries")
 
             if small_notifs:
+
+                print(f"Anomalies were found in the network. Incomming report: {small_notifs}")
+
                 current_time = time.time()
                 passed_time = current_time - warnings_states["last_warning"]
 
@@ -133,6 +157,7 @@ while True:
                     warnings_states["last_warning"] = current_time
 
                 else:
+                    print(f"Network reports are on cooldown.")
                     pass
 
         segundos_red = 0
@@ -159,6 +184,8 @@ while True:
                 warnings_states["pi_hot"] = False
 
             if notifs:
+
+                print(f"High hardware values on the raspberry Pi. Reporting: {notifs}")
 
                 message = f"*[HARDWARE ALERT - RASPBERRY PI]*\n"
 

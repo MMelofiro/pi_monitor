@@ -16,6 +16,8 @@ def send_message(text):
     :return: true if success in sending, false otherwise
     """
 
+    print(f"Sending message...")
+
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
     payload = {
@@ -28,12 +30,14 @@ def send_message(text):
         response = requests.post(url, json=payload, timeout=10)
 
         if response.status_code == 200:
+            print(f"Message sent to telegram successfully")
             return True
         else:
+            print(f"Message failed to send to telegram successfully")
             return False
 
     except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+        print(f"Error while sending message: {e}")
         return False
 
 if __name__ == '__main__':
