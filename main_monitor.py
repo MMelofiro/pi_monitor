@@ -34,8 +34,8 @@ while True:
 
             print("Router is offline...")
             print(f"Past Status: ", end="")
-                if warnings_states["router_down"]: print("Offline")
-                else: print("Online\nReport due.")
+            if warnings_states["router_down"]: print("Offline")
+            else: print("Online\nReport due.")
 
             if not warnings_states["router_down"]:
 
@@ -61,10 +61,10 @@ while True:
 
             print(f"Internet is down.")
             print(f"Past Status: ", end="")
-                if warnings_states["internet_down"]:
-                    print("Offline")
-                else:
-                    print("Online\nReport due.")
+            if warnings_states["internet_down"]:
+                print("Offline")
+            else:
+                print("Online\nReport due.")
 
             if not warnings_states["internet_down"]:
                 pi = monitor_pi.report()
