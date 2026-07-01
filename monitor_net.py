@@ -5,7 +5,7 @@ import send_telegram
 import monitor_pi
 import time
 
-ROUTER_IP = "192.168.1.1"
+ROUTER_IP = "192.168.0.1"
 GOOGLE_IP = "8.8.8.8"
 MAX_JITTER = 15.0
 MAX_PACKET_LOSS = 20.0
