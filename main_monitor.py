@@ -4,7 +4,7 @@ import monitor_pi
 import os
 import send_telegram
 
-OFFLINE_LOG = "/monitor/offline_log.txt"
+OFFLINE_LOG = "offline_log.txt"
 COOLDOWN = 3600
 
 warnings_states = {
