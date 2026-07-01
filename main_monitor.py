@@ -57,7 +57,7 @@ while True:
 
                 print("Saved in logs.")
 
-        elif net_report["status_internet"] != "online":
+        elif net_report["status_google"] != "online":
 
             print(f"Internet is down.")
             print(f"Past Status: ", end="")
